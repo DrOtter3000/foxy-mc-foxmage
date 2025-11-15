@@ -9,9 +9,23 @@ size = Vector2(64, 128)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_j341n")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Body" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 1)
+texture = ExtResource("1_6xdwp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+position = Vector2(40, -4)
+scale = Vector2(0.375, 0.1875)
 texture = ExtResource("1_6xdwp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j341n")
+
+[node name="Arm" type="Node2D" parent="."]
+
+[node name="ProjectileSpawnPosition" type="Node2D" parent="Arm"]
+position = Vector2(64, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Arm/ProjectileSpawnPosition"]
+scale = Vector2(0.12499999, 0.12499999)
+texture = ExtResource("1_6xdwp")
