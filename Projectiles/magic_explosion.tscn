@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://bohnwji7lvhba"]
+
+[ext_resource type="Script" uid="uid://dipl5wlbc8gey" path="res://Projectiles/magic_explosion.gd" id="1_8wh0s"]
+[ext_resource type="Texture2D" uid="uid://64ab42pxbc04" path="res://Assets/Projectiles/Splash.png" id="1_wdl2l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8wh0s"]
+radius = 32.0
+
+[sub_resource type="Gradient" id="Gradient_1cdtp"]
+offsets = PackedFloat32Array(0, 0.20817845, 0.75092936, 1)
+colors = PackedColorArray(1.6970743, 1.6970743, 1.6970743, 1, 1.1041564, 0.0013141235, 1.1377364, 1, 0.14861149, 0.40626585, 1.6970743, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q6jvn"]
+gradient = SubResource("Gradient_1cdtp")
+
+[sub_resource type="Curve" id="Curve_qinxa"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mrj7c"]
+curve = SubResource("Curve_qinxa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2gong"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 15.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 1, 0)
+scale_min = 0.0
+scale_max = 3.5
+scale_curve = SubResource("CurveTexture_mrj7c")
+color_ramp = SubResource("GradientTexture1D_q6jvn")
+
+[node name="MagicExplosion" type="Area2D"]
+script = ExtResource("1_8wh0s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8wh0s")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 48
+texture = ExtResource("1_wdl2l")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_2gong")

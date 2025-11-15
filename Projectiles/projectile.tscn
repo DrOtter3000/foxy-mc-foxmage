@@ -1,17 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://carc6rsqatowh"]
+[gd_scene load_steps=10 format=3 uid="uid://carc6rsqatowh"]
 
 [ext_resource type="Script" uid="uid://03no061immam" path="res://Projectiles/projectile.gd" id="1_ggq0q"]
-[ext_resource type="Texture2D" uid="uid://njejxl5ep2g4" path="res://icon.svg" id="1_kyvh0"]
+[ext_resource type="PackedScene" uid="uid://bohnwji7lvhba" path="res://Projectiles/magic_explosion.tscn" id="2_08w86"]
+[ext_resource type="Texture2D" uid="uid://c2uvy7uba8mr0" path="res://Assets/Projectiles/Projectile.png" id="2_ggq0q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rubjp"]
-radius = 8.0
+radius = 16.0
+
+[sub_resource type="Gradient" id="Gradient_ggq0q"]
+offsets = PackedFloat32Array(0, 0.16356878, 0.62081784, 1)
+colors = PackedColorArray(1.6970743, 1.6970743, 1.6970743, 1, 0.40037182, 0.299572, 1.5497038, 1, 1.1041564, 0.0013141235, 1.1377364, 1, 0.9222428, 1.1632558, 1.697393, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_08w86"]
+gradient = SubResource("Gradient_ggq0q")
+
+[sub_resource type="Curve" id="Curve_08w86"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.026997838, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3v6ly"]
+curve = SubResource("Curve_08w86")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q1bbl"]
+particle_flag_disable_z = true
+angular_velocity_min = -180.00002
+angular_velocity_max = -180.00002
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_3v6ly")
+color_ramp = SubResource("GradientTexture1D_08w86")
 
 [node name="Projectile" type="Area2D"]
 script = ExtResource("1_ggq0q")
+explosion = ExtResource("2_08w86")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rubjp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.12499999, 0.12499999)
-texture = ExtResource("1_kyvh0")
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 12
+texture = ExtResource("2_ggq0q")
+lifetime = 1.5
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_q1bbl")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
