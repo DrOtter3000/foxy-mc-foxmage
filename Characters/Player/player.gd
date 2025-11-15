@@ -46,4 +46,5 @@ func _process(delta: float) -> void:
 		var projectile_instance = projectile.instantiate()
 		get_parent().add_child(projectile_instance)
 		projectile_instance.global_position = projectile_spawn_position.global_position
+		projectile_instance.rotation = arm.rotation
 	move_and_slide()
