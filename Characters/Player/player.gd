@@ -4,8 +4,11 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+@export var projectile: PackedScene
+
 @onready var arm: Node2D = $Arm
 @onready var body: Sprite2D = $Body
+@onready var projectile_spawn_position: Node2D = $Arm/ProjectileSpawnPosition
 
 
 func _physics_process(delta: float) -> void:
@@ -38,5 +41,9 @@ func _process(delta: float) -> void:
 	else:
 		body.scale.x = -1
 		arm.scale.y = -1
-
+	
+	if Input.is_action_just_pressed("attack_range"):
+		var projectile_instance = projectile.instantiate()
+		get_parent().add_child(projectile_instance)
+		projectile_instance.global_position = projectile_spawn_position.global_position
 	move_and_slide()
