@@ -34,6 +34,10 @@ scale_curve = SubResource("CurveTexture_mrj7c")
 color_ramp = SubResource("GradientTexture1D_q6jvn")
 
 [node name="MagicExplosion" type="Area2D"]
+collision_layer = 0
+collision_mask = 6
+monitoring = false
+monitorable = false
 script = ExtResource("1_8wh0s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -47,3 +51,11 @@ lifetime = 0.2
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_2gong")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

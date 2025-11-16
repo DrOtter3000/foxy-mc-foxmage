@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+@export var health := 5.0
 @export var projectile: PackedScene
 
 @onready var arm: Node2D = $Arm
@@ -32,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var mouse_position = get_viewport().get_mouse_position()
 	arm.look_at(mouse_position)
 	if mouse_position.x > position.x:
@@ -48,3 +49,12 @@ func _process(delta: float) -> void:
 		projectile_instance.global_position = projectile_spawn_position.global_position
 		projectile_instance.rotation = arm.rotation
 	move_and_slide()
+
+func take_damage(damage) -> void:
+	health -= damage
+	print(health)
+	if health <= 0:
+		die()
+
+func die() -> void:
+	print("ded")

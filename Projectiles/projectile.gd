@@ -13,12 +13,11 @@ func _process(delta: float) -> void:
 	global_position += direction * speed * delta
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	var explosion_instance = explosion.instantiate()
 	get_parent().call_deferred("add_child", explosion_instance)
 	explosion_instance.global_position = global_position
 	queue_free()
 
 func _on_player_detection_timer_timeout() -> void:
-	print("hi")
 	set_collision_mask_value(2, 2)
