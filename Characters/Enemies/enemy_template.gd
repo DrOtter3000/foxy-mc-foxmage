@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 @export var health := 2.0
 @export var speed := 100
+@export var direction := 1 # 1 == left, -1 == right
 
 
 func _physics_process(delta: float) -> void:
@@ -10,11 +11,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	velocity.x = speed * direction
 	move_and_slide()
 
 func take_damage(damage) -> void:
@@ -24,3 +21,6 @@ func take_damage(damage) -> void:
 
 func die() -> void:
 	queue_free()
+
+func switch_direction(_body) -> void:
+	direction *= -1
