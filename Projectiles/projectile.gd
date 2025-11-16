@@ -14,6 +14,6 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	var explosion_instance = explosion.instantiate()
-	get_parent().add_child(explosion_instance)
+	get_parent().call_deferred("add_child", explosion_instance)
 	explosion_instance.global_position = global_position
 	queue_free()
