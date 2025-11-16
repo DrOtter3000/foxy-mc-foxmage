@@ -32,7 +32,20 @@ texture = ExtResource("1_s7a6p")
 position = Vector2(-0.39751053, 0)
 shape = SubResource("RectangleShape2D_sjjkl")
 
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(80, -56.000008)
+rotation = 1.5641986
+scale = Vector2(10.0625, 1)
+texture = ExtResource("1_s7a6p")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D3/StaticBody2D"]
+position = Vector2(-0.39751053, 0)
+shape = SubResource("RectangleShape2D_sjjkl")
+
 [node name="Player" parent="." instance=ExtResource("2_nsw7g")]
+position = Vector2(312, 0)
 
 [node name="Enemy" parent="." instance=ExtResource("3_nsw7g")]
 position = Vector2(656, 464)
